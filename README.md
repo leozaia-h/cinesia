@@ -1,2 +1,2 @@
-# cinesia
+# cuangares
 Password generator.
