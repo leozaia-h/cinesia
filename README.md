@@ -4,6 +4,7 @@ gerador de senhas
 chmod +x cuangares.py
 
 ./cuangares -h
+
   usage: cuangares.py [-h] [-d [dicionario]] [-f [formato]] -t [tamanho] -q [quantidade]
 
   Gerador de senhas em português.
