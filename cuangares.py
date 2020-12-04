@@ -1,5 +1,27 @@
+#!/usr/bin/python3
+
+import argparse
 import random
 import os
+
+parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
+                                 description='''\
+Gerador de senhas em português.
+exemplo: cuangares -t 5 -q 5''')
+parser.add_argument('-d', action = 'store', dest = 'd', required = False, metavar='[dicionario]',
+                    help = 'Dicionario customizavel.')
+parser.add_argument('-f', action = 'store', dest = 'f', default=4, required = False, metavar='[formato]',
+                    help = 'Formato da senha 1:[A-Z] 2:[A-Za-z] 3:[A-Za-z0-9] 4:[ascii printable] 5:[dictionary]')
+parser.add_argument('-t', action = 'store', dest = 't', metavar='[tamanho]',
+                    default = 'Hello, world!', required = True,
+                    help = 'Tamanho da senha.')
+parser.add_argument('-q', action = 'store', dest = 'q', required = True, metavar='[quantidade]',
+                    help = 'Quantidade de senhas.')
+
+arguments = parser.parse_args()
+escolha = int(arguments.f)
+quant = int(arguments.q)
+tam = int(arguments.t)
 
 arq = "dicionario.txt"
 senha = ''
@@ -47,56 +69,23 @@ def gerarRand(quant, tam, alfabeto):
         print(senha)
     print("----------AQUI TERMINAM AS SENHAS----------")
 
-def main():
-    limpar_terminal()
-    while(True):
-        print("                            ,--.                                              ")
-        print("  ,----..     ,---,       ,--.'|    ,---,.  .--.--.      ,---,   ,---,        ")
-        print(" /   /   \ ,`--.' |   ,--,:  : |  ,'  .' | /  /    '. ,`--.' |  '  .' \       ")
-        print("|   :     :|   :  :,`--.'`|  ' :,---.'   ||  :  /`. / |   :  : /  ;    '.     ")
-        print(".   |  ;. /:   |  '|   :  :  | ||   |   .';  |  |--`  :   |  ':  :       \    ")
-        print(".   ; /--` |   :  |:   |   \ | ::   :  |-,|  :  ;_    |   :  |:  |   /\   \   ")
-        print(";   | ;    '   '  ;|   : '  '; |:   |  ;/| \  \    `. '   '  ;|  :  ' ;.   :  ")
-        print("|   : |    |   |  |'   ' ;.    ;|   :   .'  `----.   \|   |  ||  |  ;/  \   \ ")
-        print(".   | '___ '   :  ;|   | | \   ||   |  |-,  __ \  \  |'   :  ;'  :  | \  \ ,' ")
-        print("'   ; : .'||   |  ''   : |  ; .''   :  ;/| /  /`--'  /|   |  '|  |  '  '--'   ")
-        print("'   | '/  :'   :  ||   | '`--'  |   |    \'--'.     / '   :  ||  :  :         ")
-        print("|   :    / ;   |.' '   : |      |   :   .'  `--'---'  ;   |.' |  | ,'         ")
-        print(" \   \ .'  '---'   ;   |.'      |   | ,'              '---'   `--''           ")
-        print("  `---`            '---'        `----'                                   v1.0 ")
+def main(escolha, quant, tam):
+    if(escolha == 5):
+        tam = int(input('Quantidade de palavras: '))
 
-        print('Escolha um formato:\
-               \n1) ABDC\
-               \n2) ABcd\
-               \n3) Abc1\
-               \n4) Ab3@\
-               \n5) Dicionario PT\
-               \n9) Sair')
+    if(escolha == 1):
+        gerarRand(quant, tam, alfabeto1)
+    elif(escolha == 2):
+        gerarRand(quant, tam, alfabeto2)
+    elif(escolha == 3):
+        gerarRand(quant, tam, alfabeto3)
+    elif(escolha == 4):
+        gerarRand(quant, tam, alfabeto4)
+    elif(escolha == 5):
+        ler_dic(arq)
+        gerarDic(arq, quant, tam)
+    else:
+        print('Escolha inválida')
 
-        escolha = int(input(': '))
-        quant = int(input('Quantidade de senhas: '))
-        if(escolha == 5):
-            tam = int(input('Quantidade de palavras: '))
-        else:
-            tam = int(input('Quantidade de letras: '))
-
-        if(escolha == 1):
-            gerarRand(quant, tam, alfabeto1)
-        elif(escolha == 2):
-            gerarRand(quant, tam, alfabeto2)
-        elif(escolha == 3):
-            gerarRand(quant, tam, alfabeto3)
-        elif(escolha == 4):
-            gerarRand(quant, tam, alfabeto4)
-        elif(escolha == 5):
-            ler_dic(arq)
-            gerarDic(arq, quant, tam)
-        elif(escolha == 9):
-            exit()
-        else:
-            print('Escolha inválida')
-
-        os.system("PAUSE")
-
-main()
+main(escolha, quant, tam)
 
